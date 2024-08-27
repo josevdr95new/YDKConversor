@@ -1,0 +1,434 @@
+<html><head><base href="blob:https://party.websim.ai/c80baf6b-2128-4039-bbc2-4d99a6481579">
+<title>YDK a YU-GI-OH! DECKS WIKI! Conversor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    margin: 0;
+    padding: 20px;
+    color: #e0e0e0;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #2d2d2d;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  .header h1 {
+    color: #00bcd4;
+    margin: 0;
+    font-size: 24px;
+  }
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
+  .button {
+    padding: 10px 15px;
+    background-color: #00bcd4;
+    color: #121212;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .button:hover {
+    background-color: #00acc1;
+    transform: translateY(-2px);
+  }
+  .button:active {
+    transform: translateY(1px);
+  }
+  .button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+  }
+  .main-content {
+    display: flex;
+    gap: 20px;
+  }
+  .deck-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .deck-section {
+    background-color: #2d2d2d;
+    border: 1px solid #3d3d3d;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  .deck-section h3 {
+    margin-top: 0;
+    color: #00bcd4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 5px;
+  }
+  .card-slot {
+    width: 60px;
+    height: 88px;
+    border: 1px dashed #4d4d4d;
+    background-size: cover;
+    background-position: center;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+    position: relative;
+  }
+  .card-slot.filled {
+    border: 1px solid #00bcd4;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .card-slot:hover {
+    transform: scale(1.05);
+  }
+  .card-slot::after {
+    content: attr(data-card-count);
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 10px;
+  }
+  .sidebar {
+    width: 300px;
+  }
+  .card-preview {
+    background-color: #2d2d2d;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  }
+  .card-preview img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .card-preview h3 {
+    margin: 10px 0;
+    color: #00bcd4;
+    font-size: 18px;
+  }
+  .card-preview p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  #exportOutput {
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #1a237e;
+    color: #ffffff;
+    border: 2px solid #3f51b5;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    resize: vertical;
+    box-shadow: 0 0 10px rgba(63, 81, 181, 0.5);
+    transition: all 0.3s ease;
+  }
+  #exportOutput:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(63, 81, 181, 0.8);
+  }
+  #progressBar {
+    width: 100%;
+    height: 20px;
+    background-color: #2d2d2d;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  #progressFill {
+    width: 0;
+    height: 100%;
+    background-color: #00bcd4;
+    transition: width 0.3s ease;
+  }
+  .footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+  }
+  .help-section {
+    background-color: #2d2d2d;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  .help-section h2 {
+    color: #00bcd4;
+  }
+  .monster { background-color: rgba(231, 76, 60, 0.3); }
+  .spell { background-color: rgba(39, 174, 96, 0.3); }
+  .trap { background-color: rgba(243, 156, 18, 0.3); }
+  .extra { background-color: rgba(142, 68, 173, 0.3); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>YDK a YU-GI-OH! DECKS WIKI! Conversor</h1>
+    <div class="button-group">
+      <input type="file" id="fileInput" accept=".ydk" style="display: none;">
+      <button class="button" onclick="document.getElementById('fileInput').click()">Cargar Deck</button>
+      <button class="button" id="exportButton" disabled>Exportar Deck</button>
+      <button class="button" id="copyButton" disabled>Copiar al Portapapeles</button>
+    </div>
+  </div>
+  
+  <div id="progressBar"><div id="progressFill"></div></div>
+  
+  <div class="main-content">
+    <div class="deck-area">
+      <div class="deck-section" id="mainDeck">
+        <h3>Deck Principal <span id="mainCount">0/60</span></h3>
+        <div class="card-grid"></div>
+      </div>
+      <div class="deck-section" id="extraDeck">
+        <h3>Extra Deck <span id="extraCount">0/15</span></h3>
+        <div class="card-grid"></div>
+      </div>
+      <div class="deck-section" id="sideDeck">
+        <h3>Side Deck <span id="sideCount">0/15</span></h3>
+        <div class="card-grid"></div>
+      </div>
+    </div>
+    
+    <div class="sidebar">
+      <div class="card-preview" id="cardPreview">
+        <h3>Vista previa de la carta</h3>
+        <p>Selecciona una carta para ver sus detalles aquí.</p>
+      </div>
+    </div>
+  </div>
+  
+  <textarea id="exportOutput" style="display:none;"></textarea>
+  
+  <div class="help-section">
+    <h2>Guía de Ayuda</h2>
+    <p>Bienvenido al Conversor YDK a YU-GI-OH! DECKS WIKI! Esta herramienta te permite convertir fácilmente tus decks de Yu-Gi-Oh! del formato .ydk al formato utilizado en YU-GI-OH! DECKS WIKI.</p>
+    <h3>Cómo usar esta web:</h3>
+    <ol>
+      <li>Haz clic en "Cargar Deck" y selecciona tu archivo .ydk.</li>
+      <li>Espera a que se carguen todas las cartas (la barra de progreso te indicará el avance).</li>
+      <li>Una vez cargado, verás tu deck organizado en las secciones correspondientes.</li>
+      <li>Haz clic en "Exportar Deck" para generar el código en formato wiki.</li>
+      <li>Usa "Copiar al Portapapeles" para copiar el código generado.</li>
+    </ol>
+    <h3>Utilidad:</h3>
+    <p>Esta herramienta es ideal para compartir tus decks en la comunidad de YU-GI-OH! DECKS WIKI. El formato generado es compatible con la estructura utilizada en decks populares como <a href="https://yugiohdecks.fandom.com/es/wiki/Branded_Despia_2024_-_Kaitotenjo7" target="_blank">Branded Despia 2024</a> y <a href="https://yugiohdecks.fandom.com/es/wiki/Fur_Hire_Runick_2024_-_Kaitotenjo7" target="_blank">Fur Hire Runick 2024</a>.</p>
+  </div>
+  
+  <div class="footer">
+    <p>Creado por josevdr95 y ChatGPT 3.5 | Versión 1.0</p>
+    <p>Enlace a YU-GI-OH! DECKS WIKI: <a href="https://yugiohdecks.fandom.com/" target="_blank">https://yugiohdecks.fandom.com/</a></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+const API_BASE_URL = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
+
+let currentDeck = { main: [], extra: [], side: [] };
+let allCards = [];
+
+document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+document.getElementById('exportButton').addEventListener('click', exportDeck);
+document.getElementById('copyButton').addEventListener('click', copyToClipboard);
+
+async function handleFileUpload(e) {
+  const file = e.target.files[0];
+  const content = await file.text();
+  try {
+    currentDeck = parseDeck(content);
+    await loadAllCards();
+    renderDeck();
+    updateProgressBar(100);
+    document.getElementById('exportButton').disabled = false;
+    document.getElementById('copyButton').disabled = false;
+  } catch (error) {
+    alert('Error: ' + error.message);
+  }
+}
+
+function parseDeck(content) {
+  const lines = content.split('\n');
+  const deck = { main: [], extra: [], side: [] };
+  let currentSection = null;
+  
+  for (const line of lines) {
+    if (line.startsWith('#main')) {
+      currentSection = 'main';
+    } else if (line.startsWith('#extra')) {
+      currentSection = 'extra';
+    } else if (line.startsWith('!side')) {
+      currentSection = 'side';
+    } else if (line.trim() && !line.startsWith('#')) {
+      if (currentSection) {
+        deck[currentSection].push(line.trim());
+      }
+    }
+  }
+  
+  if (deck.main.length === 0 && deck.extra.length === 0) {
+    throw new Error('El archivo no contiene un deck válido.');
+  }
+  
+  return deck;
+}
+
+async function loadAllCards() {
+  const cardIds = [...new Set([...currentDeck.main, ...currentDeck.extra, ...currentDeck.side])];
+  const totalCards = cardIds.length;
+  let loadedCards = 0;
+
+  const updateProgress = () => {
+    loadedCards++;
+    const progress = (loadedCards / totalCards) * 100;
+    updateProgressBar(progress);
+  };
+
+  const promises = cardIds.map(id => 
+    axios.get(`${API_BASE_URL}?id=${id}`)
+      .then(result => {
+        updateProgress();
+        return result;
+      })
+  );
+
+  const results = await Promise.all(promises);
+  allCards = results.map(result => result.data.data[0]);
+}
+
+function updateProgressBar(progress) {
+  document.getElementById('progressFill').style.width = `${progress}%`;
+}
+
+function renderDeck() {
+  ['main', 'extra', 'side'].forEach(section => {
+    const sectionElement = document.getElementById(section + 'Deck');
+    const gridElement = sectionElement.querySelector('.card-grid');
+    gridElement.innerHTML = '';
+    
+    currentDeck[section].forEach((cardId, index) => {
+      const card = allCards.find(c => c.id.toString() === cardId);
+      if (card) {
+        const cardElement = createCardElement(card, index, section);
+        gridElement.appendChild(cardElement);
+      }
+    });
+    
+    updateCardCount(section);
+  });
+}
+
+function createCardElement(card, index, section) {
+  const cardElement = document.createElement('div');
+  cardElement.className = `card-slot filled ${getCardType(card)}`;
+  cardElement.style.backgroundImage = `url(${card.card_images[0].image_url_small})`;
+  cardElement.dataset.cardId = card.id;
+  cardElement.dataset.index = index;
+  cardElement.dataset.section = section;
+  
+  cardElement.addEventListener('click', () => showCardPreview(card));
+  
+  return cardElement;
+}
+
+function updateCardCount(section) {
+  const count = currentDeck[section].length;
+  const maxCount = section === 'main' ? 60 : 15;
+  document.getElementById(`${section}Count`).textContent = `${count}/${maxCount}`;
+}
+
+function showCardPreview(card) {
+  const previewElement = document.getElementById('cardPreview');
+  previewElement.innerHTML = `
+    <img src="${card.card_images[0].image_url}" alt="${card.name}">
+    <h3>${card.name}</h3>
+    <p><strong>Tipo:</strong> ${card.type}</p>
+    <p><strong>Atributo:</strong> ${card.attribute || 'N/A'}</p>
+    <p><strong>Nivel/Rango:</strong> ${card.level || card.rank || 'N/A'}</p>
+    <p><strong>ATK/DEF:</strong> ${card.atk || '?'} / ${card.def || '?'}</p>
+    <p><strong>Descripción:</strong> ${card.desc}</p>
+  `;
+}
+
+function getCardType(card) {
+  if (card.type.includes('Fusion') || card.type.includes('Synchro') || card.type.includes('XYZ') || card.type.includes('Link')) {
+    return 'extra';
+  } else if (card.type.includes('Monster')) {
+    return 'monster';
+  } else if (card.type.includes('Spell')) {
+    return 'spell';
+  } else if (card.type.includes('Trap')) {
+    return 'trap';
+  }
+  return 'other';
+}
+
+function exportDeck() {
+  const output = document.getElementById('exportOutput');
+  let exportText = "==Lista de cartas==\n{{RecetaDeck\n\n<!-- Deck Principal -->\n";
+  
+  currentDeck.main.forEach((cardId, index) => {
+    const card = allCards.find(c => c.id.toString() === cardId);
+    exportText += `|d${index + 1}=${card.name}\n`;
+  });
+
+  exportText += "\n<!-- Extra Deck -->\n";
+  currentDeck.extra.forEach((cardId, index) => {
+    const card = allCards.find(c => c.id.toString() === cardId);
+    exportText += `|e${index + 1}=${card.name}\n`;
+  });
+
+  exportText += "\n<!-- Side Deck -->\n";
+  currentDeck.side.forEach((cardId, index) => {
+    const card = allCards.find(c => c.id.toString() === cardId);
+    exportText += `|s${index + 1}=${card.name}\n`;
+  });
+
+  exportText += "}}\n";
+  
+  output.value = exportText;
+  output.style.display = 'block';
+  output.scrollIntoView({behavior: 'smooth'});
+}
+
+function copyToClipboard() {
+  const output = document.getElementById('exportOutput');
+  output.select();
+  document.execCommand('copy');
+  alert('Deck copiado al portapapeles');
+}
+</script>
+</body></html>
