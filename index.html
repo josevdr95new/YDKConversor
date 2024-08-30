@@ -63,6 +63,47 @@
       </div>
     </div>
     
+    <div class="form-container">
+      <h2>Información del Deck</h2>
+      <form id="deckInfoForm">
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" name="autor" required>
+
+        <label for="carta">Carta Clave:</label>
+        <input type="text" id="carta" name="carta" required>
+
+        <label for="atributo">Atributo:</label>
+        <input type="text" id="atributo" name="atributo">
+
+        <label for="atributo2">Atributo 2:</label>
+        <input type="text" id="atributo2" name="atributo2">
+
+        <label for="tipo">Tipo:</label>
+        <input type="text" id="tipo" name="tipo">
+
+        <label for="tipo2">Tipo 2:</label>
+        <input type="text" id="tipo2" name="tipo2">
+
+        <label for="arquetipo">Arquetipo:</label>
+        <input type="text" id="arquetipo" name="arquetipo">
+
+        <label for="arquetipo2">Arquetipo 2:</label>
+        <input type="text" id="arquetipo2" name="arquetipo2">
+
+        <label for="arquetipo3">Arquetipo 3:</label>
+        <input type="text" id="arquetipo3" name="arquetipo3">
+
+        <label for="estrategia">Estrategia:</label>
+        <input type="text" id="estrategia" name="estrategia">
+
+        <label for="fecha_publicacion">Fecha de Publicación:</label>
+        <input type="date" id="fecha_publicacion" name="fecha_publicacion" required>
+
+        <label for="comentario">Comentario del Autor:</label>
+        <textarea id="comentario" name="comentario" rows="4" cols="50"></textarea>
+      </form>
+    </div>
+    
     <textarea id="exportOutput" style="display:none;"></textarea>
     <button class="button" id="copyButton" style="display:none;">Copiar al Portapapeles</button>
     
@@ -74,6 +115,7 @@
         <li>Haz clic en "Cargar Deck" y selecciona tu archivo .ydk.</li>
         <li>Espera a que se carguen todas las cartas (la barra de progreso te indicará el avance).</li>
         <li>Una vez cargado, verás tu deck organizado en las secciones correspondientes.</li>
+        <li>Rellena la información adicional del deck en el formulario.</li>
         <li>Haz clic en "Exportar Deck" para generar el código en formato wiki.</li>
         <li>Usa "Copiar al Portapapeles" para copiar el código generado.</li>
         <li>Ve a <a href="https://yugiohdecks.fandom.com/es/wiki/Portada" target="_blank">YU-GI-OH! DECKS WIKI</a> para publicar tu deck.</li>
@@ -101,7 +143,7 @@
     </div>
     
     <div class="footer">
-      <p>Creado por josevdr95 y ChatGPT 3.5 | Versión 1.2</p>
+      <p>Creado por josevdr95 y ChatGPT 3.5 | Versión 1.3</p>
       <p>Enlace a YU-GI-OH! FANDOM: <a href="https://yugioh.fandom.com/es/wiki/Portada" target="_blank">https://yugioh.fandom.com/es/wiki/Portada</a></p>
       <p>Enlace para publicar decks: <a href="https://yugiohdecks.fandom.com/es/wiki/Portada" target="_blank">https://yugiohdecks.fandom.com/es/wiki/Portada</a></p>
       <p>Fecha de inicio del proyecto: 27/08/2024</p>

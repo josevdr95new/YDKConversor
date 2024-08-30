@@ -306,9 +306,63 @@ a:hover {
   margin-top: 0;
 }
 
+#copyButton {
+  margin-top: 5px;
+}
 
+/* Estilos añadidos para el formulario */
 
-#copyButton{
-margin-top: 5px;
+.form-container {
+  background-color: #2d2d2d;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  max-height: 400px;
+  overflow-y: auto;
+}
 
+.form-container h2 {
+  color: #00bcd4;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.form-container form {
+  display: grid;
+  gap: 10px;
+}
+
+.form-container label {
+  font-size: 14px;
+  color: #e0e0e0;
+}
+
+.form-container input, .form-container textarea, .form-container button {
+  padding: 10px;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border: 1px solid #3d3d3d;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.form-container input:focus, .form-container textarea:focus {
+  outline: none;
+  border-color: #00bcd4;
+  box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+}
+
+.form-container button {
+  background-color: #00bcd4;
+  color: #121212;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.form-container button:hover {
+  background-color: #00acc1;
 }

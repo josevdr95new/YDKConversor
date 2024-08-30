@@ -5,8 +5,13 @@ let currentDeck = { main: [], extra: [], side: [] };
 let allCards = [];
 let cardCache = new Map();
 
+// Configurar eventos de los botones y el input de archivo
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);
-document.getElementById('exportButton').addEventListener('click', exportDeck);
+document.getElementById('exportButton').addEventListener('click', () => { 
+    const formData = new FormData(document.getElementById('deckInfoForm'));
+    const deckInfo = Object.fromEntries(formData.entries());
+    exportDeck(deckInfo);
+});
 document.getElementById('copyButton').addEventListener('click', copyToClipboard);
 document.getElementById('fileInput').addEventListener('click', () => {
     document.getElementById('fileInput').value = null;
@@ -16,6 +21,7 @@ document.getElementById('fileInput').addEventListener('click', () => {
 // Cargar y actualizar estadísticas
 loadStatistics();
 
+// Función para cargar estadísticas
 async function loadStatistics() {
     try {
         const response = await axios.get(STATS_API_URL);
@@ -30,12 +36,14 @@ async function loadStatistics() {
     }
 }
 
+// Función para actualizar la visualización de estadísticas
 function updateStatisticsDisplay(stats) {
     document.getElementById('visitCount').textContent = stats.visitCount;
     document.getElementById('deckCount').textContent = stats.deckCount;
     document.getElementById('averageTime').textContent = stats.averageTime.toFixed(2) + 's';
 }
 
+// Manejar la carga de archivos
 async function handleFileUpload(e) {
     const startTime = performance.now();
     const file = e.target.files[0];
@@ -74,6 +82,7 @@ async function handleFileUpload(e) {
     }
 }
 
+// Función para analizar el contenido del deck
 function parseDeck(content) {
     const lines = content.split('\n');
     const deck = { main: [], extra: [], side: [] };
@@ -100,6 +109,7 @@ function parseDeck(content) {
     return deck;
 }
 
+// Función para cargar todas las cartas
 async function loadAllCards() {
     const cardIds = [...new Set([...currentDeck.main, ...currentDeck.extra, ...currentDeck.side])];
     const totalCards = cardIds.length;
@@ -141,12 +151,14 @@ async function loadAllCards() {
     }
 }
 
+// Función para actualizar la barra de progreso
 function updateProgressBar(progress) {
     requestAnimationFrame(() => {
         document.getElementById('progressFill').style.width = `${progress}%`;
     });
 }
 
+// Función para renderizar el deck en la página
 function renderDeck() {
     ['main', 'extra', 'side'].forEach(section => {
         const sectionElement = document.getElementById(section + 'Deck');
@@ -170,6 +182,7 @@ function renderDeck() {
     });
 }
 
+// Función para crear un elemento de carta
 function createCardElement(card, count, section) {
     const cardElement = document.createElement('div');
     cardElement.className = `card-slot filled ${getCardType(card)}`;
@@ -188,12 +201,14 @@ function createCardElement(card, count, section) {
     return cardElement;
 }
 
+// Función para actualizar el contador de cartas
 function updateCardCount(section) {
     const count = currentDeck[section].length;
     const maxCount = section === 'main' ? 60 : 15;
     document.getElementById(`${section}Count`).textContent = `${count}/${maxCount}`;
 }
 
+// Función para mostrar la vista previa de una carta
 function showCardPreview(card) {
     const previewElement = document.getElementById('cardPreview');
     previewElement.innerHTML = `
@@ -207,6 +222,7 @@ function showCardPreview(card) {
     `;
 }
 
+// Función para obtener el tipo de carta
 function getCardType(card) {
     if (card.type.includes('Fusion') || card.type.includes('Synchro') || card.type.includes('XYZ') || card.type.includes('Link')) {
         return 'extra';
@@ -220,9 +236,27 @@ function getCardType(card) {
     return 'other';
 }
 
-function exportDeck() {
+// Función para exportar el deck
+function exportDeck(deckInfo) {
     const output = document.getElementById('exportOutput');
-    let exportText = "==Lista de cartas==\n{{RecetaDeck\n\n<!-- Deck Principal -->\n";
+    let exportText = `{{InfoDeck
+|autor=${deckInfo.autor}
+|carta=${deckInfo.carta}
+|atributo=${deckInfo.atributo}
+|atributo2=${deckInfo.atributo2}
+|tipo=${deckInfo.tipo}
+|tipo2=${deckInfo.tipo2}
+|arquetipo=${deckInfo.arquetipo}
+|arquetipo2=${deckInfo.arquetipo2}
+|arquetipo3=${deckInfo.arquetipo3}
+|estrategia=${deckInfo.estrategia}
+|fecha publicación=${deckInfo.fecha_publicacion}
+}}
+
+==Lista de cartas==
+{{RecetaDeck
+
+<!-- Deck Principal -->\n`;
 
     currentDeck.main.forEach((cardId, index) => {
         const card = allCards.find(c => c.id.toString() === cardId);
@@ -241,14 +275,19 @@ function exportDeck() {
         exportText += `|s${index + 1}=${card.name}\n`;
     });
 
-    exportText += "}}\n";
+    exportText += `}}
+
+==Comentario del autor==
+${deckInfo.comentario}
+`;
 
     output.value = exportText;
     output.style.display = 'block';
     document.getElementById('copyButton').style.display = 'block';
-    output.scrollIntoView({behavior: 'smooth'});
+    output.scrollIntoView({ behavior: 'smooth' });
 }
 
+// Función para copiar el texto exportado al portapapeles
 function copyToClipboard() {
     const output = document.getElementById('exportOutput');
     output.select();
@@ -256,6 +295,7 @@ function copyToClipboard() {
     alert('Deck copiado al portapapeles');
 }
 
+// Función para limpiar el deck
 function clearDeck() {
     currentDeck = { main: [], extra: [], side: [] };
     allCards = [];
@@ -269,6 +309,7 @@ function clearDeck() {
     document.getElementById('progressFill').style.width = '0%';
 }
 
+// Función para precargar imágenes comunes y usar IntersectionObserver para carga perezosa
 document.addEventListener('DOMContentLoaded', () => {
     // Precarga de imágenes comunes
     const commonImages = [
