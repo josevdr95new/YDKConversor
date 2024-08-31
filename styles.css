@@ -338,7 +338,7 @@ a:hover {
   color: #e0e0e0;
 }
 
-.form-container input, .form-container textarea, .form-container button {
+.form-container input, .form-container textarea, .form-container select, .form-container button {
   padding: 10px;
   background-color: #1e1e1e;
   color: #e0e0e0;
@@ -348,10 +348,18 @@ a:hover {
   transition: all 0.3s ease;
 }
 
-.form-container input:focus, .form-container textarea:focus {
+.form-container input:focus, .form-container textarea:focus, .form-container select:focus {
   outline: none;
   border-color: #00bcd4;
   box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+}
+
+.form-container select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
 }
 
 .form-container button {
@@ -365,4 +373,10 @@ a:hover {
 
 .form-container button:hover {
   background-color: #00acc1;
+}
+
+
+
+#exportToWikiButton {
+margin-top: 5px;
 }

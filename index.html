@@ -66,35 +66,46 @@
     <div class="form-container">
       <h2>Información del Deck</h2>
       <form id="deckInfoForm">
+        <label for="nombreDeck">Nombre del Deck:</label>
+        <input type="text" id="nombreDeck" name="nombreDeck" required>
+
         <label for="autor">Autor:</label>
         <input type="text" id="autor" name="autor" required>
 
         <label for="carta">Carta Clave:</label>
         <input type="text" id="carta" name="carta" required>
 
-        <label for="atributo">Atributo:</label>
+        <label for="atributo">Atributo 1:</label>
         <input type="text" id="atributo" name="atributo">
 
         <label for="atributo2">Atributo 2:</label>
         <input type="text" id="atributo2" name="atributo2">
 
-        <label for="tipo">Tipo:</label>
+        <label for="tipo">Tipo 1:</label>
         <input type="text" id="tipo" name="tipo">
 
         <label for="tipo2">Tipo 2:</label>
         <input type="text" id="tipo2" name="tipo2">
 
-        <label for="arquetipo">Arquetipo:</label>
+        <label for="arquetipo">Arquetipo 1 (en español):</label>
         <input type="text" id="arquetipo" name="arquetipo">
 
-        <label for="arquetipo2">Arquetipo 2:</label>
+        <label for="arquetipo2">Arquetipo 2 (en español):</label>
         <input type="text" id="arquetipo2" name="arquetipo2">
 
-        <label for="arquetipo3">Arquetipo 3:</label>
+        <label for="arquetipo3">Arquetipo 3 (en español):</label>
         <input type="text" id="arquetipo3" name="arquetipo3">
 
         <label for="estrategia">Estrategia:</label>
-        <input type="text" id="estrategia" name="estrategia">
+        <select id="estrategia" name="estrategia" required>
+          <option value="Aggro">Aggro</option>
+          <option value="Beatdown">Beatdown</option>
+          <option value="Control">Control</option>
+          <option value="Burn">Burn</option>
+          <option value="Stun">Stun</option>
+          <option value="Lockdown">Lockdown</option>
+          <option value="Deckout">Deckout</option>
+        </select>
 
         <label for="fecha_publicacion">Fecha de Publicación:</label>
         <input type="date" id="fecha_publicacion" name="fecha_publicacion" required>
@@ -105,7 +116,10 @@
     </div>
     
     <textarea id="exportOutput" style="display:none;"></textarea>
-    <button class="button" id="copyButton" style="display:none;">Copiar al Portapapeles</button>
+    <div class="button-group">
+      <button class="button small-button" id="copyButton" style="display:none;">Copiar al Portapapeles</button>
+      <button class="button small-button" id="exportToWikiButton" disabled>Exportar a Wiki</button>
+    </div>
     
     <div class="help-section">
       <h2>Guía de Ayuda</h2>
@@ -143,7 +157,7 @@
     </div>
     
     <div class="footer">
-      <p>Creado por josevdr95 y ChatGPT 3.5 | Versión 1.3</p>
+      <p>Creado por josevdr95 y ChatGPT 3.5 | Versión 1.4</p>
       <p>Enlace a YU-GI-OH! FANDOM: <a href="https://yugioh.fandom.com/es/wiki/Portada" target="_blank">https://yugioh.fandom.com/es/wiki/Portada</a></p>
       <p>Enlace para publicar decks: <a href="https://yugiohdecks.fandom.com/es/wiki/Portada" target="_blank">https://yugiohdecks.fandom.com/es/wiki/Portada</a></p>
       <p>Fecha de inicio del proyecto: 27/08/2024</p>

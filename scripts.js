@@ -13,9 +13,16 @@ document.getElementById('exportButton').addEventListener('click', () => {
     exportDeck(deckInfo);
 });
 document.getElementById('copyButton').addEventListener('click', copyToClipboard);
+document.getElementById('exportToWikiButton').addEventListener('click', exportToWiki);
 document.getElementById('fileInput').addEventListener('click', () => {
     document.getElementById('fileInput').value = null;
     clearDeck();
+});
+
+// Habilitar el botón "Exportar a Wiki" solo si el campo "Nombre del Deck" está lleno
+document.getElementById('nombreDeck').addEventListener('input', function () {
+    const deckName = document.getElementById('nombreDeck').value.trim();
+    document.getElementById('exportToWikiButton').disabled = deckName === '';
 });
 
 // Cargar y actualizar estadísticas
@@ -54,6 +61,7 @@ async function handleFileUpload(e) {
     exportOutput.value = '';
     exportOutput.style.display = 'none';
     document.getElementById('exportButton').disabled = true;
+    document.getElementById('exportToWikiButton').disabled = true; // Deshabilitar el nuevo botón también
     document.getElementById('copyButton').style.display = 'none';
 
     try {
@@ -62,8 +70,9 @@ async function handleFileUpload(e) {
         renderDeck();
         updateProgressBar(100);
 
-        // Habilitar botón de exportar una vez que el deck esté cargado
+        // Habilitar botones de exportar una vez que el deck esté cargado
         document.getElementById('exportButton').disabled = false;
+        document.getElementById('exportToWikiButton').disabled = document.getElementById('nombreDeck').value.trim() === ''; // Habilitar el nuevo botón solo si el nombre del deck está lleno
 
         // Actualizar estadísticas
         let response = await axios.get(STATS_API_URL);
@@ -301,12 +310,26 @@ function clearDeck() {
     allCards = [];
     renderDeck();
     document.getElementById('exportButton').disabled = true;
+    document.getElementById('exportToWikiButton').disabled = true;
     document.getElementById('copyButton').style.display = 'none';
     const exportOutput = document.getElementById('exportOutput');
     exportOutput.style.display = 'none';
     exportOutput.value = '';
     document.getElementById('cardPreview').innerHTML = '<h3>Vista previa de la carta</h3><p>Selecciona una carta para ver sus detalles aquí.</p>';
     document.getElementById('progressFill').style.width = '0%';
+}
+
+// Función para exportar el contenido del deck a la wiki
+function exportToWiki() {
+    const deckName = document.getElementById('nombreDeck').value.trim();
+
+    if (deckName) {
+        // Redirigir a la página de edición de la wiki
+        const wikiUrl = `https://yugiohdecks.fandom.com/es/index.php?action=edit&preload=Plantilla%3ANuevaReceta&title=${encodeURIComponent(deckName)}&create=Crear&section=1`;
+        window.open(wikiUrl, '_blank');
+    } else {
+        alert('Por favor, ingrese un nombre de deck.');
+    }
 }
 
 // Función para precargar imágenes comunes y usar IntersectionObserver para carga perezosa
