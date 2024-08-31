@@ -13,7 +13,10 @@ document.getElementById('exportButton').addEventListener('click', () => {
     exportDeck(deckInfo);
 });
 document.getElementById('copyButton').addEventListener('click', copyToClipboard);
-document.getElementById('exportToWikiButton').addEventListener('click', exportToWiki);
+document.getElementById('exportToWikiButton').addEventListener('click', () => {
+    copyToClipboard();
+    exportToWiki();
+});
 document.getElementById('fileInput').addEventListener('click', () => {
     document.getElementById('fileInput').value = null;
     clearDeck();
@@ -61,7 +64,7 @@ async function handleFileUpload(e) {
     exportOutput.value = '';
     exportOutput.style.display = 'none';
     document.getElementById('exportButton').disabled = true;
-    document.getElementById('exportToWikiButton').disabled = true; // Deshabilitar el nuevo botón también
+    document.getElementById('exportToWikiButton').style.display = 'none';
     document.getElementById('copyButton').style.display = 'none';
 
     try {
@@ -72,7 +75,6 @@ async function handleFileUpload(e) {
 
         // Habilitar botones de exportar una vez que el deck esté cargado
         document.getElementById('exportButton').disabled = false;
-        document.getElementById('exportToWikiButton').disabled = document.getElementById('nombreDeck').value.trim() === ''; // Habilitar el nuevo botón solo si el nombre del deck está lleno
 
         // Actualizar estadísticas
         let response = await axios.get(STATS_API_URL);
@@ -293,6 +295,8 @@ ${deckInfo.comentario}
     output.value = exportText;
     output.style.display = 'block';
     document.getElementById('copyButton').style.display = 'block';
+    document.getElementById('exportToWikiButton').style.display = 'block';  // Asegurar que el botón también se muestre
+    document.getElementById('exportToWikiButton').disabled = deckInfo.nombreDeck.trim() === ''; // Habilitar o deshabilitar según el nombre del deck
     output.scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -310,7 +314,7 @@ function clearDeck() {
     allCards = [];
     renderDeck();
     document.getElementById('exportButton').disabled = true;
-    document.getElementById('exportToWikiButton').disabled = true;
+    document.getElementById('exportToWikiButton').style.display = 'none';
     document.getElementById('copyButton').style.display = 'none';
     const exportOutput = document.getElementById('exportOutput');
     exportOutput.style.display = 'none';
