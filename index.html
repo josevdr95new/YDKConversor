@@ -1,105 +1,203 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YDKConversor en Mantenimiento</title>
-    <style>
-        body {
-            background-color: #2a2a2a;
-            color: #ffffff;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        .container {
-            border: 3px solid #ffcc00;
-            padding: 20px;
-            background-color: #1a1a1a;
-            box-shadow: 0 0 10px #ffcc00;
-            display: inline-block;
-            max-width: 800px;
-        }
-        .title {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #ffcc00;
-        }
-        .message {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-        .contact, .donation {
-            margin-top: 20px;
-            font-size: 1em;
-            color: #ffcc00;
-        }
-        .email {
-            color: #ffffff;
-            text-decoration: none;
-        }
-        .footer {
-            font-size: 0.8em;
-            color: #888888;
-            margin-top: 20px;
-        }
-        .license {
-            margin-top: 30px;
-            font-size: 0.9em;
-            text-align: left;
-            background-color: #333333;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #ffcc00;
-        }
-        .license-title {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: #ffcc00;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YDK a YU-GI-OH! DECKS WIKI! Conversor</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="title">YDKConversor en Mantenimiento</div>
-        <div class="message">
-            Lamentamos informarle que el YDKConversor está en mantenimiento por tiempo indefinido debido a la falta de una base de datos.
-        </div>
-        <div class="donation">
-            Si desea donar una base de datos para ayudar a restaurar el servicio, por favor contacte a: 
-            <a class="email" href="mailto:josevdr95@gmail.com">josevdr95@gmail.com</a>
-        </div>
-        <div class="contact">
-            Si tiene alguna otra pregunta, también puede contactar a: 
-            <a class="email" href="mailto:josevdr95@gmail.com">josevdr95@gmail.com</a>
-        </div>
-        <div class="footer">
-            Gracias por su comprensión. <br>
-            Equipo de YDKConversor
-        </div>
-        <div class="license">
-            <div class="license-title">Licencia de Uso Personal y Comercial Restringido</div>
-            <p>Por la presente se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de este software y los archivos de documentación asociados (el "Software"), para utilizar el Software exclusivamente para uso personal y no comercial, sujeto a las siguientes condiciones:</p>
-            <ol>
-                <li>El Software no puede ser utilizado, copiado, modificado, fusionado, publicado, distribuido, sublicenciado o vendido sin el permiso explícito por escrito del autor, Josevdr95.</li>
-                <li>Cualquier uso del Software para fines comerciales está estrictamente prohibido sin el permiso explícito por escrito del autor.</li>
-                <li>Este aviso de licencia debe ser incluido en todas las copias o partes sustanciales del Software.</li>
-            </ol>
-            <p>EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD, ADECUACIÓN PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO LOS AUTORES O TITULARES DEL COPYRIGHT SERÁN RESPONSABLES POR CUALQUIER RECLAMACIÓN, DAÑO U OTRA RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO, AGRAVIO O DE OTRO MODO, DERIVADA DE, FUERA DE O EN CONEXIÓN CON EL SOFTWARE O EL USO U OTROS TRATOS EN EL SOFTWARE.</p>
-            <p>Para obtener el permiso necesario, por favor contacte a Josevdr95 en <a class="email" href="mailto:josevdr95@gmail.com">josevdr95@gmail.com</a>.</p>
-            <p>Creado por Josevdr95.</p>
-            
-            <div class="license-title">Personal and Commercial Restricted Use License</div>
-            <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to use the Software exclusively for personal and non-commercial purposes, subject to the following conditions:</p>
-            <ol>
-                <li>The Software may not be used, copied, modified, merged, published, distributed, sublicensed, or sold without the explicit written permission of the author, Josevdr95.</li>
-                <li>Any use of the Software for commercial purposes is strictly prohibited without the explicit written permission of the author.</li>
-                <li>This license notice shall be included in all copies or substantial portions of the Software.</li>
-            </ol>
-            <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-            <p>For obtaining the necessary permission, please contact Josevdr95 at <a class="email" href="mailto:josevdr95@gmail.com">josevdr95@gmail.com</a>.</p>
-            <p>Created by Josevdr95.</p>
-        </div>
+  <div class="container">
+    <div class="header">
+      <h1>YDK a YU-GI-OH! DECKS WIKI! Conversor</h1>
+      <div class="button-group">
+        <input type="file" id="fileInput" accept=".ydk" style="display: none;">
+        <button class="button" onclick="document.getElementById('fileInput').click()">Cargar Deck</button>
+        <button class="button" id="exportButton" disabled>Exportar Deck</button>
+      </div>
     </div>
+    <!-- ... (anuncios) ... -->
+	   <section class="anuncios-section">
+        <h2 class="anuncios-title">Criptomonedas Gratis en telegram</h2>
+        <div class="anuncios-container">
+            <div class="anuncio">
+                <img src="adimg/01.jpg" alt="Anuncio 1">
+                <div class="anuncio-content">
+                    <h3>Airdrop de Hamster Kombat</h3>
+                    <p>Participa en nuestro emocionante airdrop de Hamster Kombat y obtén tokens gratuitos. No te pierdas la oportunidad de ser parte de esta innovadora comunidad de criptomonedas</p>
+                    <a href="https://t.me/hamSter_kombat_bot/start?startapp=kentId1661848348" target="_blank">Participa</a>
+                </div>
+            </div>
+            <div class="anuncio">
+                <img src="adimg/02.jpg" alt="Anuncio 2">
+                <div class="anuncio-content">
+                    <h3>Airdrop de Blum</h3>
+                    <p>Participa en nuestro emocionante airdrop de Blum y obtén tokens gratuitos. No te pierdas la oportunidad de ser parte de esta innovadora comunidad de criptomonedas.</p>
+                    <a href="https://t.me/blum/app?startapp=ref_2jlDP7KKmC" target="_blank">Participar</a>
+                </div>
+            </div>
+            <div class="anuncio">
+                <img src="adimg/03.jpg" alt="Anuncio 3">
+                <div class="anuncio-content">
+                    <h3>Airdrop de Rocky Rabbit</h3>
+                    <p>Participa en nuestro emocionante airdrop de Rocky Rabbit y obtén tokens gratuitos. No te pierdas la oportunidad de ser parte de esta innovadora comunidad de criptomonedas.</p>
+                    <a href="https://t.me/rocky_rabbit_bot/play?startapp=frId1661848348" target="_blank">Participa</a>
+                </div>
+            </div>
+        </div>
+    </section>
+   <!-- ... (anuncios final) ... -->
+   
+<!--	
+    <div class="stats">
+      <h2>Estadísticas</h2>
+      <div class="stat-item">
+        <div class="stat-value" id="allowedCards">0</div>
+        <div class="stat-label">Cartas Permitidas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="visitCount">0</div>
+        <div class="stat-label">Visitas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="deckCount">0</div>
+        <div class="stat-label">Decks Convertidos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="averageTime">0s</div>
+        <div class="stat-label">Tiempo Promedio de Conversión</div>
+      </div>
+    </div>
+    -->
+    <div id="progressBar"><div id="progressFill"></div></div>
+    
+    <div class="main-content">
+      <div class="deck-area">
+        <div class="deck-section" id="mainDeck">
+          <h3>Deck Principal <span id="mainCount">0/60</span></h3>
+          <div class="card-grid"></div>
+        </div>
+        <div class="deck-section" id="extraDeck">
+          <h3>Extra Deck <span id="extraCount">0/15</span></h3>
+          <div class="card-grid"></div>
+        </div>
+        <div class="deck-section" id="sideDeck">
+          <h3>Side Deck <span id="sideCount">0/15</span></h3>
+          <div class="card-grid"></div>
+        </div>
+      </div>
+      
+      <div class="sidebar">
+        <div class="card-preview" id="cardPreview">
+          <h3>Vista previa de la carta</h3>
+          <p>Selecciona una carta para ver sus detalles aquí.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-container">
+      <h2>Información del Deck</h2>
+      <form id="deckInfoForm">
+        <label for="nombreDeck">Nombre del Deck: <span style="font-weight: normal; color: #888;">(Ejemplo: ABC Horussworn v1.0 2024 - Josevdr95)</span></label>
+        <input type="text" id="nombreDeck" name="nombreDeck" required>
+
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" name="autor" required>
+
+        <label for="carta">Carta Clave:</label>
+        <input type="text" id="carta" name="carta" required>
+
+        <label for="atributo">Atributo 1: <span style="font-weight: normal; color: #888;">(Ejemplo: LUZ, OSCURIDAD)</span></label>
+        <input type="text" id="atributo" name="atributo">
+
+        <label for="atributo2">Atributo 2:</label>
+        <input type="text" id="atributo2" name="atributo2">
+
+        <label for="tipo">Tipo 1: <span style="font-weight: normal; color: #888;">(Ejemplo: Guerrero, Lanzador de Conjuros)</span></label>
+        <input type="text" id="tipo" name="tipo">
+
+        <label for="tipo2">Tipo 2:</label>
+        <input type="text" id="tipo2" name="tipo2">
+
+        <label for="arquetipo">Arquetipo 1: <span style="font-weight: normal; color: #888;">(Ejemplo: Unión, Lightsworn)</span></label>
+        <input type="text" id="arquetipo" name="arquetipo">
+
+        <label for="arquetipo2">Arquetipo 2: </label>
+        <input type="text" id="arquetipo2" name="arquetipo2">
+
+        <label for="arquetipo3">Arquetipo 3: </label>
+        <input type="text" id="arquetipo3" name="arquetipo3">
+
+        <label for="estrategia">Estrategia:</label>
+        <select id="estrategia" name="estrategia" required>
+          <option value="Aggro">Aggro</option>
+          <option value="Beatdown">Beatdown</option>
+          <option value="Control">Control</option>
+          <option value="Burn">Burn</option>
+          <option value="Stun">Stun</option>
+          <option value="Lockdown">Lockdown</option>
+          <option value="Deckout">Deckout</option>
+        </select>
+
+        <label for="fecha_publicacion">Fecha de Publicación:</label>
+        <input type="date" id="fecha_publicacion" name="fecha_publicacion" required>
+
+        <label for="comentario">Comentario del Autor:</label>
+        <textarea id="comentario" name="comentario" rows="4" cols="50"></textarea>
+      </form>
+    </div>
+    
+    <textarea id="exportOutput" style="display:none;"></textarea>
+    <div class="button-group">
+      <button class="button small-button" id="copyButton" style="display:none;">Copiar al Portapapeles</button>
+      <button class="button small-button" id="exportToWikiButton" style="display:none;">Exportar a Wiki</button>
+    </div>
+    
+    <div class="help-section">
+      <h2>Guía de Ayuda</h2>
+      <p>Bienvenido al Conversor YDK a YU-GI-OH! DECKS WIKI! Esta herramienta te permite convertir fácilmente tus decks de Yu-Gi-Oh! del formato .ydk al formato utilizado en YU-GI-OH! DECKS WIKI.</p>
+      <h3>Cómo usar esta web:</h3>
+      <ol>
+        <li>Haz clic en "Cargar Deck" y selecciona tu archivo .ydk.</li>
+        <li>Espera a que se carguen todas las cartas (la barra de progreso te indicará el avance).</li>
+        <li>Una vez cargado, verás tu deck organizado en las secciones correspondientes.</li>
+        <li>Rellena la información adicional del deck en el formulario.</li>
+        <li>Haz clic en "Exportar Deck" para generar el código en formato wiki.</li>
+        <li>Usa "Copiar al Portapapeles" para copiar el código generado.</li>
+        <li>Ve a <a href="https://yugiohdecks.fandom.com/es/wiki/Portada" target="_blank">YU-GI-OH! DECKS WIKI</a> para publicar tu deck.</li>
+      </ol>
+      <h3>Utilidad:</h3>
+      <p>Esta herramienta es ideal para compartir tus decks en la comunidad de YU-GI-OH! DECKS WIKI. El formato generado es compatible con la estructura utilizada en la wiki de Yu-Gi-Oh!</p>
+    </div>
+    
+<div class="disclaimer">
+    <h3>Descargo de Responsabilidad</h3>
+    <p>Este sitio web es una herramienta no oficial creada por fans para fans. No está afiliado, respaldado ni aprobado por Konami o cualquier otra entidad oficial relacionada con Yu-Gi-Oh!. El uso de esta herramienta es bajo su propia responsabilidad. Los creadores no se hacen responsables de cualquier uso indebido o consecuencias derivadas del uso de esta herramienta. Asegúrese de respetar los derechos de autor y las políticas de uso de YU-GI-OH! DECKS WIKI al utilizar el contenido generado por esta herramienta. Los usuarios son responsables de cualquier clic en los anuncios que puedan aparecer en la web.</p>
+</div>
+    
+    <div class="license">
+      <h3>Licencia de Uso Personal y Comercial Restringido</h3>
+      <p>Por la presente se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de este software y los archivos de documentación asociados (el "Software"), para utilizar el Software exclusivamente para uso personal y no comercial, sujeto a las siguientes condiciones:</p>
+      <ol>
+        <li>El Software no puede ser utilizado, copiado, modificado, fusionado, publicado, distribuido, sublicenciado o vendido sin el permiso explícito por escrito del autor, Josevdr95.</li>
+        <li>Cualquier uso del Software para fines comerciales está estrictamente prohibido sin el permiso explícito por escrito del autor.</li>
+        <li>Este aviso de licencia debe ser incluido en todas las copias o partes sustanciales del Software.</li>
+      </ol>
+      <p>EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD, ADECUACIÓN PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO LOS AUTORES O TITULARES DEL COPYRIGHT SERÁN RESPONSABLES POR CUALQUIER RECLAMACIÓN, DAÑO U OTRA RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO, AGRAVIO O DE OTRO MODO, DERIVADA DE, FUERA DE O EN CONEXIÓN CON EL SOFTWARE O EL USO U OTROS TRATOS EN EL SOFTWARE.</p>
+      <p>Para obtener el permiso necesario, por favor contacte a Josevdr95 en <a href="mailto:josevdr95@gmail.com">josevdr95@gmail.com</a>.</p>
+      <p>Creado por Josevdr95.</p>
+    </div>
+    
+    <div class="footer">
+      <p>Creado por josevdr95 y ChatGPT 3.5 | Versión 1.6</p>
+      <p>Enlace a YU-GI-OH! FANDOM: <a href="https://yugioh.fandom.com/es/wiki/Portada" target="_blank">https://yugioh.fandom.com/es/wiki/Portada</a></p>
+      <p>Enlace para publicar decks: <a href="https://yugiohdecks.fandom.com/es/wiki/Portada" target="_blank">https://yugiohdecks.fandom.com/es/wiki/Portada</a></p>
+      <p>Fecha de inicio del proyecto: 27/08/2024</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dexie/3.2.2/dexie.min.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
