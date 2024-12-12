@@ -10,7 +10,9 @@ document.getElementById('fileInput').addEventListener('change', handleFileUpload
 document.getElementById('exportButton').addEventListener('click', () => { 
     const formData = new FormData(document.getElementById('deckInfoForm'));
     const deckInfo = Object.fromEntries(formData.entries());
-    exportDeck(deckInfo);
+    if (validateForm(deckInfo)) {
+        exportDeck(deckInfo);
+    }
 });
 document.getElementById('copyButton').addEventListener('click', copyToClipboard);
 document.getElementById('exportToWikiButton').addEventListener('click', () => {
@@ -87,9 +89,9 @@ async function handleFileUpload(e) {
         await axios.post(STATS_API_URL, { ...stats });
 
         updateStatisticsDisplay(stats);
-        toastr.success('Deck cargado y convertido con éxito.');
+        showNotification('success', 'Deck cargado y convertido con éxito.');
     } catch (error) {
-        toastr.error('Error: ' + error.message);
+        showNotification('error', 'Error: ' + error.message);
     }
 }
 
@@ -250,6 +252,14 @@ function getCardType(card) {
 // Función para exportar el deck
 function exportDeck(deckInfo) {
     const output = document.getElementById('exportOutput');
+
+    // Obtener la fecha de publicación del campo de entrada o usar la fecha actual como predeterminada
+    const fechaPublicacionInput = document.getElementById('fecha_publicacion').value;
+    const fechaPublicacion = fechaPublicacionInput ? new Date(fechaPublicacionInput) : new Date();
+
+    // Formatear la fecha en formato dd/mm/yyyy
+    const formattedDate = `${fechaPublicacion.getUTCDate().toString().padStart(2, '0')}/${(fechaPublicacion.getUTCMonth() + 1).toString().padStart(2, '0')}/${fechaPublicacion.getUTCFullYear()}`;
+
     let exportText = `{{InfoDeck
 |autor=${deckInfo.autor}
 |carta=${deckInfo.carta}
@@ -261,7 +271,7 @@ function exportDeck(deckInfo) {
 |arquetipo2=${deckInfo.arquetipo2}
 |arquetipo3=${deckInfo.arquetipo3}
 |estrategia=${deckInfo.estrategia}
-|fecha publicación=${deckInfo.fecha_publicacion}
+|fecha publicación=${formattedDate}
 }}
 
 ==Lista de cartas==
@@ -305,7 +315,7 @@ function copyToClipboard() {
     const output = document.getElementById('exportOutput');
     output.select();
     document.execCommand('copy');
-    alert('Deck copiado al portapapeles');
+    showNotification('success', 'Deck copiado al portapapeles');
 }
 
 // Función para limpiar el deck
@@ -332,37 +342,38 @@ function exportToWiki() {
         const wikiUrl = `https://yugiohdecks.fandom.com/es/index.php?action=edit&preload=Plantilla%3ANuevaReceta&title=${encodeURIComponent(deckName)}&create=Crear&section=1`;
         window.open(wikiUrl, '_blank');
     } else {
-        alert('Por favor, ingrese un nombre de deck.');
+        showNotification('error', 'Por favor, ingrese un nombre de deck.');
     }
 }
 
-// Función para precargar imágenes comunes y usar IntersectionObserver para carga perezosa
-document.addEventListener('DOMContentLoaded', () => {
-    // Precarga de imágenes comunes
-    const commonImages = [
-        'path/to/common/image1.jpg',
-        'path/to/common/image2.jpg'
-        // Agrega más imágenes comunes aquí
-    ];
-    commonImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
-    });
+// Función para validar el formulario antes de exportar
+function validateForm(deckInfo) {
+    const requiredFields = ['nombreDeck', 'autor', 'carta', 'estrategia', 'fecha_publicacion'];
+    const missingFields = requiredFields.filter(field => !deckInfo[field]);
 
-    // Uso de IntersectionObserver para carga perezosa
-    if ('IntersectionObserver' in window) {
-        const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    observer.unobserve(img);
-                }
-            });
-        });
-
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            lazyLoadObserver.observe(img);
-        });
+    if (missingFields.length > 0) {
+        showNotification('error', `Faltan los siguientes campos: ${missingFields.join(', ')}`);
+        return false;
     }
-});
+
+    return true;
+}
+
+// Función para mostrar notificaciones
+function showNotification(type, message) {
+    const notificationContainer = document.getElementById('notifications');
+    
+    // Eliminar todas las notificaciones existentes
+    notificationContainer.innerHTML = '';
+
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    notificationContainer.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 5000);
+}
+
+

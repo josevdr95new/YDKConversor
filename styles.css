@@ -6,6 +6,12 @@ body {
   margin: 0;
   padding: 20px;
   color: #e0e0e0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.light-mode {
+  background-color: #f5f5f5;
+  color: #333;
 }
 
 .container {
@@ -15,6 +21,12 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: background-color 0.3s;
+}
+
+.container.light-mode {
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .header {
@@ -25,12 +37,22 @@ body {
   background-color: #2d2d2d;
   padding: 15px;
   border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.header.light-mode {
+  background-color: #f0f0f0;
 }
 
 .header h1 {
   color: #00bcd4;
   margin: 0;
   font-size: 24px;
+  transition: color 0.3s;
+}
+
+.header h1.light-mode {
+  color: #0097a7;
 }
 
 .button-group {
@@ -65,6 +87,15 @@ body {
   cursor: not-allowed;
 }
 
+.button.light-mode {
+  background-color: #0097a7;
+  color: #fff;
+}
+
+.button.light-mode:hover {
+  background-color: #00838f;
+}
+
 /* Estilo para el botón pequeño */
 .small-button {
   padding: 5px 10px;
@@ -79,6 +110,15 @@ body {
 
 .small-button:hover {
   background-color: #00acc1;
+}
+
+.small-button.light-mode {
+  background-color: #0097a7;
+  color: #fff;
+}
+
+.small-button.light-mode:hover {
+  background-color: #00838f;
 }
 
 .main-content {
@@ -98,6 +138,12 @@ body {
   border: 1px solid #3d3d3d;
   border-radius: 5px;
   padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.deck-section.light-mode {
+  background-color: #f0f0f0;
+  border-color: #ddd;
 }
 
 .deck-section h3 {
@@ -107,6 +153,11 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
+  transition: color 0.3s;
+}
+
+.deck-section h3.light-mode {
+  color: #0097a7;
 }
 
 .card-grid {
@@ -156,6 +207,12 @@ body {
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  transition: background-color 0.3s;
+}
+
+.card-preview.light-mode {
+  background-color: #f0f0f0;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
 .card-preview img {
@@ -168,6 +225,11 @@ body {
   margin: 10px 0;
   color: #00bcd4;
   font-size: 18px;
+  transition: color 0.3s;
+}
+
+.card-preview h3.light-mode {
+  color: #0097a7;
 }
 
 .card-preview p {
@@ -191,6 +253,13 @@ body {
   transition: all 0.3s ease;
 }
 
+#exportOutput.light-mode {
+  background-color: #e3f2fd;
+  color: #333;
+  border-color: #90caf9;
+  box-shadow: 0 0 10px rgba(144, 202, 249, 0.5);
+}
+
 #exportOutput:focus {
   outline: none;
   box-shadow: 0 0 15px rgba(63, 81, 181, 0.8);
@@ -203,6 +272,11 @@ body {
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 20px;
+  transition: background-color 0.3s;
+}
+
+#progressBar.light-mode {
+  background-color: #f0f0f0;
 }
 
 #progressFill {
@@ -212,11 +286,20 @@ body {
   transition: width 0.3s ease;
 }
 
+#progressFill.light-mode {
+  background-color: #0097a7;
+}
+
 .footer {
   margin-top: 20px;
   text-align: center;
   font-size: 12px;
   color: #888;
+  transition: color 0.3s;
+}
+
+.footer.light-mode {
+  color: #666;
 }
 
 .help-section {
@@ -224,10 +307,20 @@ body {
   padding: 15px;
   border-radius: 10px;
   margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.help-section.light-mode {
+  background-color: #f0f0f0;
 }
 
 .help-section h2 {
   color: #00bcd4;
+  transition: color 0.3s;
+}
+
+.help-section h2.light-mode {
+  color: #0097a7;
 }
 
 .monster { background-color: rgba(231, 76, 60, 0.3); }
@@ -246,6 +339,14 @@ a:hover {
   text-decoration: underline;
 }
 
+a.light-mode {
+  color: #0097a7;
+}
+
+a.light-mode:hover {
+  color: #00838f;
+}
+
 .stats {
   background-color: #2d2d2d;
   padding: 15px;
@@ -254,12 +355,22 @@ a:hover {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  transition: background-color 0.3s;
+}
+
+.stats.light-mode {
+  background-color: #f0f0f0;
 }
 
 .stats h2 {
   color: #00bcd4;
   width: 100%;
   margin-top: 0;
+  transition: color 0.3s;
+}
+
+.stats h2.light-mode {
+  color: #0097a7;
 }
 
 .stat-item {
@@ -273,11 +384,21 @@ a:hover {
   font-size: 24px;
   font-weight: bold;
   color: #00bcd4;
+  transition: color 0.3s;
+}
+
+.stat-value.light-mode {
+  color: #0097a7;
 }
 
 .stat-label {
   font-size: 14px;
   color: #888;
+  transition: color 0.3s;
+}
+
+.stat-label.light-mode {
+  color: #666;
 }
 
 .disclaimer {
@@ -286,11 +407,22 @@ a:hover {
   border-radius: 10px;
   margin-top: 20px;
   border: 1px solid #00bcd4;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.disclaimer.light-mode {
+  background-color: #f0f0f0;
+  border-color: #0097a7;
 }
 
 .disclaimer h3 {
   color: #00bcd4;
   margin-top: 0;
+  transition: color 0.3s;
+}
+
+.disclaimer h3.light-mode {
+  color: #0097a7;
 }
 
 .license {
@@ -299,11 +431,22 @@ a:hover {
   border-radius: 10px;
   margin-top: 20px;
   border: 1px solid #00bcd4;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.license.light-mode {
+  background-color: #f0f0f0;
+  border-color: #0097a7;
 }
 
 .license h3 {
   color: #00bcd4;
   margin-top: 0;
+  transition: color 0.3s;
+}
+
+.license h3.light-mode {
+  color: #0097a7;
 }
 
 #copyButton {
@@ -320,12 +463,23 @@ a:hover {
   box-shadow: 0 0 20px rgba(0,0,0,0.4);
   max-height: 400px;
   overflow-y: auto;
+  transition: background-color 0.3s;
+}
+
+.form-container.light-mode {
+  background-color: #f0f0f0;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
 .form-container h2 {
   color: #00bcd4;
   font-size: 20px;
   margin-top: 0;
+  transition: color 0.3s;
+}
+
+.form-container h2.light-mode {
+  color: #0097a7;
 }
 
 .form-container form {
@@ -336,6 +490,11 @@ a:hover {
 .form-container label {
   font-size: 14px;
   color: #e0e0e0;
+  transition: color 0.3s;
+}
+
+.form-container label.light-mode {
+  color: #333;
 }
 
 .form-container input, .form-container textarea, .form-container select, .form-container button {
@@ -348,10 +507,21 @@ a:hover {
   transition: all 0.3s ease;
 }
 
+.form-container input.light-mode, .form-container textarea.light-mode, .form-container select.light-mode, .form-container button.light-mode {
+  background-color: #fff;
+  color: #333;
+  border-color: #ddd;
+}
+
 .form-container input:focus, .form-container textarea:focus, .form-container select:focus {
   outline: none;
   border-color: #00bcd4;
   box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+}
+
+.form-container input.light-mode:focus, .form-container textarea.light-mode:focus, .form-container select.light-mode:focus {
+  border-color: #0097a7;
+  box-shadow: 0 0 10px rgba(0, 151, 167, 0.3);
 }
 
 .form-container select {
@@ -360,6 +530,10 @@ a:hover {
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
+}
+
+.form-container select.light-mode {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="black" d="M7 10l5 5 5-5z"/></svg>');
 }
 
 .form-container button {
@@ -375,137 +549,52 @@ a:hover {
   background-color: #00acc1;
 }
 
+.form-container button.light-mode {
+  background-color: #0097a7;
+  color: #fff;
+}
 
+.form-container button.light-mode:hover {
+  background-color: #00838f;
+}
 
 #exportToWikiButton {
-margin-top: 5px;
+  margin-top: 5px;
 }
 
-
-/*anuncios*/
-
-.anuncios-section {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #2d2d2d;
-    border-radius: 8px;
-	margin-bottom: 20px;
+/* Estilos para notificaciones */
+#notifications {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
-.anuncios-title {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #4CAF50;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    position: relative;
+.notification {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease;
 }
 
-.anuncios-title::after {
-    content: '';
-    display: block;
-    width: 70px;
-    height: 3px;
-    background: linear-gradient(90deg, #4CAF50, #45a049);
-    margin: 8px auto;
-    border-radius: 1.5px;
+.notification.success {
+  background-color: #4caf50;
 }
 
-.anuncios-title span {
-    display: inline-block;
-    transition: transform 0.3s ease, color 0.3s ease;
+.notification.error {
+  background-color: #f44336;
 }
 
-.anuncios-title:hover span {
-    animation: bounce 0.3s ease infinite alternate;
-}
-
-.anuncios-title span:nth-child(even) {
-    color: #45a049;
-}
-
-@keyframes bounce {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-3px);
-    }
-}
-
-.anuncios-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.anuncio {
-    width: calc(33% - 15px);
-    margin-bottom: 15px;
-    background-color: #1e1e1e;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.anuncio:hover {
-    transform: translateY(-3px);
-}
-
-.anuncio img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-}
-
-.anuncio-content {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
-}
-
-.anuncio h3 {
-    margin-top: 0;
-    color: #e0e0e0;
-    font-size: 1.1em;
-}
-
-.anuncio p {
-    color: #b0b0b0;
-    font-size: 0.85em;
-    flex-grow: 1;
-}
-
-.anuncio a {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 6px 12px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 0.85em;
-    transition: background-color 0.3s ease;
-    align-self: flex-start;
-}
-
-.anuncio a:hover {
-    background-color: #45a049;
-}
-
-@media (max-width: 768px) {
-    .anuncios-title {
-        font-size: 1.5em;
-    }
-
-    .anuncio {
-        width: 100%;
-    }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

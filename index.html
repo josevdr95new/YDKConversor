@@ -13,7 +13,8 @@
       <div class="button-group">
         <input type="file" id="fileInput" accept=".ydk" style="display: none;">
         <button class="button" onclick="document.getElementById('fileInput').click()">Cargar Deck</button>
-        <button class="button" id="exportButton" disabled>Exportar Deck</button>
+        <button class="button" id="exportButton" disabled>Exportar Deck</button> 
+      <!-- <button class="button" id="toggleMode">Modo Día/Noche</button> -->
       </div>
     </div>
     
@@ -116,6 +117,8 @@
         <li>Usa "Copiar al Portapapeles" para copiar el código generado.</li>
         <li>Ve a <a href="https://yugiohdecks.fandom.com/es/wiki/Portada" target="_blank">YU-GI-OH! DECKS WIKI</a> para publicar tu deck.</li>
       </ol>
+      <h3>Ejemplo de estructura del deck:</h3>
+      <img src="ejemplo1.png" alt="Ejemplo de estructura del deck" style="width:100%; max-width:500px;">
       <h3>Utilidad:</h3>
       <p>Esta herramienta es ideal para compartir tus decks en la comunidad de YU-GI-OH! DECKS WIKI. El formato generado es compatible con la estructura utilizada en la wiki de Yu-Gi-Oh!</p>
     </div>
@@ -139,12 +142,14 @@
     </div>
     
     <div class="footer">
-      <p>Creado por josevdr95 y ChatGPT 3.5 | Versión 1.6</p>
+      <p>Creado por josevdr95 | Versión 1.7</p>
       <p>Enlace a YU-GI-OH! FANDOM: <a href="https://yugioh.fandom.com/es/wiki/Portada" target="_blank">https://yugioh.fandom.com/es/wiki/Portada</a></p>
       <p>Enlace para publicar decks: <a href="https://yugiohdecks.fandom.com/es/wiki/Portada" target="_blank">https://yugiohdecks.fandom.com/es/wiki/Portada</a></p>
       <p>Fecha de inicio del proyecto: 27/08/2024</p>
     </div>
   </div>
+
+  <div id="notifications"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dexie/3.2.2/dexie.min.js"></script>
