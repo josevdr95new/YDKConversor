@@ -19,14 +19,14 @@ body.light-mode {
   margin: 0 auto;
   background-color: #1e1e1e;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s;
 }
 
 .container.light-mode {
   background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .header {
@@ -36,7 +36,7 @@ body.light-mode {
   margin-bottom: 20px;
   background-color: #2d2d2d;
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: background-color 0.3s;
 }
 
@@ -136,7 +136,7 @@ body.light-mode {
 .deck-section {
   background-color: #2d2d2d;
   border: 1px solid #3d3d3d;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 10px;
   transition: background-color 0.3s;
 }
@@ -179,7 +179,7 @@ body.light-mode {
 
 .card-slot.filled {
   border: 1px solid #00bcd4;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .card-slot:hover {
@@ -206,13 +206,13 @@ body.light-mode {
   background-color: #2d2d2d;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
   transition: background-color 0.3s;
 }
 
 .card-preview.light-mode {
   background-color: #f0f0f0;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .card-preview img {
@@ -347,41 +347,81 @@ a.light-mode:hover {
   color: #00838f;
 }
 
+/* Estilos mejorados para la sección de estadísticas */
 .stats {
   background-color: #2d2d2d;
-  padding: 15px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 15px;
   margin-bottom: 20px;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   transition: background-color 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .stats.light-mode {
   background-color: #f0f0f0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .stats h2 {
   color: #00bcd4;
-  width: 100%;
   margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
   transition: color 0.3s;
+  text-align: center;
 }
 
 .stats h2.light-mode {
   color: #0097a7;
 }
 
+.stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
 .stat-item {
   flex: 1;
   min-width: 150px;
-  margin: 5px;
+  max-width: 200px;
+  background-color: #3d3d3d;
+  padding: 20px;
+  border-radius: 10px;
   text-align: center;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.stat-item.light-mode {
+  background-color: #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.stat-icon {
+  font-size: 24px;
+  color: #00bcd4;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+
+.stat-icon.light-mode {
+  color: #0097a7;
 }
 
 .stat-value {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
   color: #00bcd4;
   transition: color 0.3s;
@@ -392,7 +432,7 @@ a.light-mode:hover {
 }
 
 .stat-label {
-  font-size: 14px;
+  font-size: 16px;
   color: #888;
   transition: color 0.3s;
 }
@@ -401,6 +441,34 @@ a.light-mode:hover {
   color: #666;
 }
 
+/* Estilos para la fecha de implementación del contador */
+.stat-date {
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #888;
+  transition: color 0.3s;
+}
+
+.stat-date.light-mode {
+  color: #666;
+}
+
+.stat-date-label {
+  font-weight: bold;
+  color: #00bcd4;
+  transition: color 0.3s;
+}
+
+.stat-date-label.light-mode {
+  color: #0097a7;
+}
+
+.stat-date-value {
+  font-weight: normal;
+  margin-left: 5px;
+}
 .disclaimer {
   background-color: #2d2d2d;
   padding: 15px;
@@ -597,4 +665,19 @@ a.light-mode:hover {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Estilos para la imagen de ejemplo */
+.help-section img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  border: 2px solid #00bcd4;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.help-section img.light-mode {
+  border-color: #0097a7;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }

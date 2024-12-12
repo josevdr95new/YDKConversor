@@ -1,5 +1,6 @@
 const API_BASE_URL = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
-const STATS_API_URL = 'https://chatter-statuesque-promotion.glitch.me/stats';
+const STATS_API_URL = 'https://right-burnt-approach.glitch.me/stats';
+const WS_URL = 'wss://right-burnt-approach.glitch.me';
 
 let currentDeck = { main: [], extra: [], side: [] };
 let allCards = [];
@@ -7,18 +8,9 @@ let cardCache = new Map();
 
 // Configurar eventos de los botones y el input de archivo
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);
-document.getElementById('exportButton').addEventListener('click', () => { 
-    const formData = new FormData(document.getElementById('deckInfoForm'));
-    const deckInfo = Object.fromEntries(formData.entries());
-    if (validateForm(deckInfo)) {
-        exportDeck(deckInfo);
-    }
-});
+document.getElementById('exportButton').addEventListener('click', exportDeck);
 document.getElementById('copyButton').addEventListener('click', copyToClipboard);
-document.getElementById('exportToWikiButton').addEventListener('click', () => {
-    copyToClipboard();
-    exportToWiki();
-});
+document.getElementById('exportToWikiButton').addEventListener('click', exportToWiki);
 document.getElementById('fileInput').addEventListener('click', () => {
     document.getElementById('fileInput').value = null;
     clearDeck();
@@ -30,6 +22,30 @@ document.getElementById('nombreDeck').addEventListener('input', function () {
     document.getElementById('exportToWikiButton').disabled = deckName === '';
 });
 
+// Conectar al servidor WebSocket
+const ws = new WebSocket(WS_URL);
+
+ws.onopen = () => {
+    console.log('WebSocket connection established');
+};
+
+ws.onmessage = (event) => {
+    const stats = JSON.parse(event.data);
+    if (stats.error) {
+        console.error('Error from WebSocket:', stats.error);
+    } else {
+        updateStatisticsDisplay(stats);
+    }
+};
+
+ws.onclose = () => {
+    console.log('WebSocket connection closed');
+};
+
+ws.onerror = (error) => {
+    console.error('WebSocket error:', error);
+};
+
 // Cargar y actualizar estadísticas
 loadStatistics();
 
@@ -38,10 +54,6 @@ async function loadStatistics() {
     try {
         const response = await axios.get(STATS_API_URL);
         const stats = response.data;
-
-        stats.visitCount++;
-        await axios.post(STATS_API_URL, { ...stats });
-
         updateStatisticsDisplay(stats);
     } catch (error) {
         console.error('Error loading statistics:', error);
@@ -61,13 +73,7 @@ async function handleFileUpload(e) {
     const file = e.target.files[0];
     const content = await file.text();
 
-    // Limpiar el área de exportación y deshabilitar botones
-    const exportOutput = document.getElementById('exportOutput');
-    exportOutput.value = '';
-    exportOutput.style.display = 'none';
-    document.getElementById('exportButton').disabled = true;
-    document.getElementById('exportToWikiButton').style.display = 'none';
-    document.getElementById('copyButton').style.display = 'none';
+    clearDeck();
 
     try {
         currentDeck = parseDeck(content);
@@ -75,7 +81,6 @@ async function handleFileUpload(e) {
         renderDeck();
         updateProgressBar(100);
 
-        // Habilitar botones de exportar una vez que el deck esté cargado
         document.getElementById('exportButton').disabled = false;
 
         // Actualizar estadísticas
@@ -86,9 +91,9 @@ async function handleFileUpload(e) {
         const conversionTime = (endTime - startTime) / 1000; // en segundos
         stats.averageTime = (stats.averageTime * (stats.deckCount - 1) + conversionTime) / stats.deckCount;
         stats.lastUpdated = new Date().toISOString();
-        await axios.post(STATS_API_URL, { ...stats });
 
-        updateStatisticsDisplay(stats);
+        await updateStatistics(stats);
+
         showNotification('success', 'Deck cargado y convertido con éxito.');
     } catch (error) {
         showNotification('error', 'Error: ' + error.message);
@@ -102,16 +107,11 @@ function parseDeck(content) {
     let currentSection = null;
 
     for (const line of lines) {
-        if (line.startsWith('#main')) {
-            currentSection = 'main';
-        } else if (line.startsWith('#extra')) {
-            currentSection = 'extra';
-        } else if (line.startsWith('!side')) {
-            currentSection = 'side';
-        } else if (line.trim() && !line.startsWith('#')) {
-            if (currentSection) {
-                deck[currentSection].push(line.trim());
-            }
+        if (line.startsWith('#main')) currentSection = 'main';
+        else if (line.startsWith('#extra')) currentSection = 'extra';
+        else if (line.startsWith('!side')) currentSection = 'side';
+        else if (line.trim() && !line.startsWith('#')) {
+            if (currentSection) deck[currentSection].push(line.trim());
         }
     }
 
@@ -153,22 +153,11 @@ async function loadAllCards() {
     });
 
     allCards = (await Promise.all(promises)).filter(card => card !== null);
-
-    // Actualizar el contador de cartas permitidas
-    try {
-        const apiCardCountResponse = await axios.get(`${API_BASE_URL}?num=1&offset=0`);
-        const allowedCards = apiCardCountResponse.data.meta.total_rows;
-        document.getElementById('allowedCards').textContent = allowedCards;
-    } catch (error) {
-        console.error('Error fetching allowed card count:', error);
-    }
 }
 
 // Función para actualizar la barra de progreso
 function updateProgressBar(progress) {
-    requestAnimationFrame(() => {
-        document.getElementById('progressFill').style.width = `${progress}%`;
-    });
+    document.getElementById('progressFill').style.width = `${progress}%`;
 }
 
 // Función para renderizar el deck en la página
@@ -250,14 +239,14 @@ function getCardType(card) {
 }
 
 // Función para exportar el deck
-function exportDeck(deckInfo) {
+function exportDeck() {
+    const formData = new FormData(document.getElementById('deckInfoForm'));
+    const deckInfo = Object.fromEntries(formData.entries());
+
+    if (!validateForm(deckInfo)) return;
+
     const output = document.getElementById('exportOutput');
-
-    // Obtener la fecha de publicación del campo de entrada o usar la fecha actual como predeterminada
-    const fechaPublicacionInput = document.getElementById('fecha_publicacion').value;
-    const fechaPublicacion = fechaPublicacionInput ? new Date(fechaPublicacionInput) : new Date();
-
-    // Formatear la fecha en formato dd/mm/yyyy
+    const fechaPublicacion = new Date(deckInfo.fecha_publicacion) || new Date();
     const formattedDate = `${fechaPublicacion.getUTCDate().toString().padStart(2, '0')}/${(fechaPublicacion.getUTCMonth() + 1).toString().padStart(2, '0')}/${fechaPublicacion.getUTCFullYear()}`;
 
     let exportText = `{{InfoDeck
@@ -305,8 +294,8 @@ ${deckInfo.comentario}
     output.value = exportText;
     output.style.display = 'block';
     document.getElementById('copyButton').style.display = 'block';
-    document.getElementById('exportToWikiButton').style.display = 'block';  // Asegurar que el botón también se muestre
-    document.getElementById('exportToWikiButton').disabled = deckInfo.nombreDeck.trim() === ''; // Habilitar o deshabilitar según el nombre del deck
+    document.getElementById('exportToWikiButton').style.display = 'block';
+    document.getElementById('exportToWikiButton').disabled = deckInfo.nombreDeck.trim() === '';
     output.scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -338,7 +327,6 @@ function exportToWiki() {
     const deckName = document.getElementById('nombreDeck').value.trim();
 
     if (deckName) {
-        // Redirigir a la página de edición de la wiki
         const wikiUrl = `https://yugiohdecks.fandom.com/es/index.php?action=edit&preload=Plantilla%3ANuevaReceta&title=${encodeURIComponent(deckName)}&create=Crear&section=1`;
         window.open(wikiUrl, '_blank');
     } else {
@@ -362,10 +350,6 @@ function validateForm(deckInfo) {
 // Función para mostrar notificaciones
 function showNotification(type, message) {
     const notificationContainer = document.getElementById('notifications');
-    
-    // Eliminar todas las notificaciones existentes
-    notificationContainer.innerHTML = '';
-
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.textContent = message;
@@ -376,4 +360,12 @@ function showNotification(type, message) {
     }, 5000);
 }
 
-
+// Función para actualizar estadísticas en el servidor
+async function updateStatistics(stats) {
+    try {
+        await axios.post(STATS_API_URL, stats);
+        ws.send(JSON.stringify(stats));
+    } catch (error) {
+        console.error('Error updating statistics:', error);
+    }
+}

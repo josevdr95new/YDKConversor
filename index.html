@@ -14,11 +14,34 @@
         <input type="file" id="fileInput" accept=".ydk" style="display: none;">
         <button class="button" onclick="document.getElementById('fileInput').click()">Cargar Deck</button>
         <button class="button" id="exportButton" disabled>Exportar Deck</button> 
-      <!-- <button class="button" id="toggleMode">Modo Día/Noche</button> -->
       </div>
     </div>
     
-    <div id="frame" style="width: 100%;"><iframe data-aa='2356757' src='//acceptable.a-ads.com/2356757' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe><a style="display: block; text-align: right; font-size: 12px" id="frame-link" href="https://aads.com/campaigns/new/?source_id=2356757&source_type=ad_unit&partner=2356757">Advertise here</a></div>
+    <div class="stats">
+      <h2>Estadísticas</h2>
+      <div class="stats-container">
+        <div class="stat-item">
+          <span class="stat-icon">👁️</span>
+          <span id="visitCount" class="stat-value">0</span>
+          <span class="stat-label">Visitas</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🃏</span>
+          <span id="deckCount" class="stat-value">0</span>
+          <span class="stat-label">Decks Cargados</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">⏱️</span>
+          <span id="averageTime" class="stat-value">0</span>
+          <span class="stat-label">Tiempo Promedio (s)</span>
+        </div>
+      </div>
+      <!-- Fecha de implementación del contador -->
+      <div class="stat-date">
+        <span class="stat-date-label">Fecha de implementación del contador de estadísticas:</span>
+        <span class="stat-date-value">12/12/2024</span>
+      </div>
+    </div>
     
     <div id="progressBar"><div id="progressFill"></div></div>
     
@@ -142,7 +165,7 @@
     </div>
     
     <div class="footer">
-      <p>Creado por josevdr95 | Versión 1.7</p>
+      <p>Creado por josevdr95 | Versión 2.0</p>
       <p>Enlace a YU-GI-OH! FANDOM: <a href="https://yugioh.fandom.com/es/wiki/Portada" target="_blank">https://yugioh.fandom.com/es/wiki/Portada</a></p>
       <p>Enlace para publicar decks: <a href="https://yugiohdecks.fandom.com/es/wiki/Portada" target="_blank">https://yugiohdecks.fandom.com/es/wiki/Portada</a></p>
       <p>Fecha de inicio del proyecto: 27/08/2024</p>
