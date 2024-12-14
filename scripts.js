@@ -369,3 +369,8 @@ async function updateStatistics(stats) {
         console.error('Error updating statistics:', error);
     }
 }
+
+// Cargar estadísticas al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    loadStatistics();
+});
