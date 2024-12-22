@@ -681,3 +681,18 @@ a.light-mode:hover {
   border-color: #0097a7;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+.promotion-link {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.promotion-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.promotion-link a:hover {
+  text-decoration: underline;
+}

@@ -302,9 +302,21 @@ ${deckInfo.comentario}
 // Función para copiar el texto exportado al portapapeles
 function copyToClipboard() {
     const output = document.getElementById('exportOutput');
-    output.select();
-    document.execCommand('copy');
-    showNotification('success', 'Deck copiado al portapapeles');
+
+    try {
+        // Seleccionar el contenido del textarea
+        output.select();
+        output.setSelectionRange(0, output.value.length); // Para navegadores más antiguos
+
+        // Copiar el contenido al portapapeles
+        document.execCommand('copy');
+
+        // Mostrar notificación de éxito
+        showNotification('success', 'Deck copiado al portapapeles');
+    } catch (error) {
+        console.error('Error al copiar al portapapeles:', error);
+        showNotification('error', 'Error al copiar al portapapeles');
+    }
 }
 
 // Función para limpiar el deck
@@ -327,6 +339,19 @@ function exportToWiki() {
     const deckName = document.getElementById('nombreDeck').value.trim();
 
     if (deckName) {
+        const output = document.getElementById('exportOutput');
+
+        // Seleccionar el contenido del textarea
+        output.select();
+        output.setSelectionRange(0, output.value.length); // Para navegadores más antiguos
+
+        // Copiar el contenido al portapapeles
+        document.execCommand('copy');
+
+        // Mostrar notificación de éxito
+        showNotification('success', 'Deck copiado al portapapeles');
+
+        // Abrir el enlace en una nueva pestaña
         const wikiUrl = `https://yugiohdecks.fandom.com/es/index.php?action=edit&preload=Plantilla%3ANuevaReceta&title=${encodeURIComponent(deckName)}&create=Crear&section=1`;
         window.open(wikiUrl, '_blank');
     } else {
